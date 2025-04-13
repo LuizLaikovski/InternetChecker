@@ -4,6 +4,7 @@ import platform
 import subprocess
 import matplotlib.pyplot as plt
 from scapy.all import *  # Para a versão avançada (opcional)
+from scapy.layers.inet import ICMP
 
 
 def testar_velocidade():

@@ -1,36 +1,26 @@
-import speedtest
-import os
+from speed_test import testar_velocidade
+from traceroute import tracert_simples, tracert_avancado
+from menu import menu
 
+def main():
+    while True:
+        opcao = menu()
 
-def verificarSinal(destino):
-    try:
-        st = speedtest.Speedtest()
-
-        print("Obtendo melhor servidor...")
-        st.get_best_server()
-
-        print("Testando velocidade de download...")
-        download_speed = st.download()  # Resultado em bits por segundo
-        download_mbps = download_speed / 1_000_000  # Converter para Mbps
-
-        print("Testando velocidade de upload...")
-        upload_speed = st.upload()  # Resultado em bits por segundo
-        upload_mbps = upload_speed / 1_000_000  # Converter para Mbps
-
-        ping = st.results.ping
-
-        os.system(f"tracert {destino}")
-
-        print("\n--- Resultados ---")
-        print(f"Download: {download_mbps:.2f} Mbps")
-        print(f"Upload: {upload_mbps:.2f} Mbps")
-        print(f"Ping: {ping:.2f} ms")
-
-    except speedtest.ConfigRetrievalError:
-        print("Erro: Não foi possível conectar aos servidores de teste")
-    except Exception as e:
-        print(f"Erro inesperado: {str(e)}")
-
+        if opcao == 1:
+            testar_velocidade()
+        elif opcao == 2:
+            destino = input("Digite o endereço de destino (ex: google.com): ")
+            tracert_simples(destino)
+        elif opcao == 3:
+            destino = input("Digite o endereço de destino (ex: google.com): ")
+            tracert_avancado(destino)
+        elif opcao == 4:
+            host = testar_velocidade()
+            if host:
+                tracert_simples(host)
+        elif opcao == 5:
+            print("Encerrando o programa...")
+            break
 
 if __name__ == "__main__":
-    verificarSinal("https://github.com/luizlaikovski")
+    main()
