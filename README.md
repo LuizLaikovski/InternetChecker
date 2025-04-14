@@ -1,2 +1,3 @@
 # InternetChecker
+##### SEMPRE EXECUTAR COMO ADMINISTRADOR
  
